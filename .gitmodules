@@ -1,0 +1,7 @@
+[submodule "wechat-php-sdk"]
+	path = wechat-php-sdk
+	url = git://github.com/NaturalWill/wechat-php-sdk.git
+	  
+[submodule "PHPMailer"]
+	path = PHPMailer
+	url = git://github.com/NaturalWill/PHPMailer.git
