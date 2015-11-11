@@ -10,6 +10,8 @@ switch($type) {
 			exit;
 			break;
 	case Wechat::MSGTYPE_EVENT:
+			if($weObj->getRevEvent()==EVENT_SUBSCRIBE)
+				$weObj->text("欢迎关注GDMU学生网管")->reply();
 			break;
 	case Wechat::MSGTYPE_IMAGE:
 			break;

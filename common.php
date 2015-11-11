@@ -1,13 +1,13 @@
 <?php
 
-//程序目录
+//绋嬪簭鐩綍
 define('S_ROOT', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
-//基本文件
+//鍩烘湰鏂囦欢
 include_once(S_ROOT.'./wechat-php-sdk/wechat.class.php');
 include_once(S_ROOT.'./PHPMailer/PHPMailerAutoload.php');
 if(!@include_once(S_ROOT.'./config.php')) {
-	//header("Location: install/index.php");//安装
+	//header("Location: install/index.php");//瀹夎
 	echo 'No Access';
 	exit();
 }
