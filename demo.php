@@ -1,5 +1,5 @@
 <?php
-include_once "common.php";
+include_once("common.php");
 
 $weObj = new Wechat($wechatoptions);
 $weObj->valid();//明文或兼容模式可以在接口验证通过后注释此句，但加密模式一定不能注释，否则会验证失败
@@ -66,7 +66,8 @@ switch($type) {
 			exit;
 			break;
 	case Wechat::MSGTYPE_EVENT:
-			if($weObj->getRevEvent()['event']==Wechat::EVENT_SUBSCRIBE)
+			$revenent=$weObj->getRevEvent();
+			if($revenent['event']==Wechat::EVENT_SUBSCRIBE)
 				$weObj->text("欢迎关注GDMU学生网管。如果你的网络出现问题，请回复“报修”。")->reply();
 			break;
 	case Wechat::MSGTYPE_IMAGE:

@@ -26,7 +26,7 @@ $_SC['charset'] 		= 'utf-8'; //页面字符集
 
 
 //email
-$_SC['username'] = "gdmunm@163.com"；
+$_SC['username'] = "gdmunm@163.com";
 $_SC['password'] = "password";
 $_SC['fromaddr'] = 'gdmunm@163.com';
 $_SC['fromname'] = 'GDMU学生网管';
