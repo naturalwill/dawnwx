@@ -1,5 +1,7 @@
 <?php
 
+@define('IN_UCHOME', TRUE);
+define('D_BUG', '0');
 //程序目录
 define('S_ROOT', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
@@ -11,40 +13,21 @@ if(!@include_once(S_ROOT.'./config.php')) {
 	echo 'No Access';
 	exit();
 }
-
 //时间
+date_default_timezone_set('Asia/Shanghai');
+
 $mtime = explode(' ', microtime());
 $_SGLOBAL['timestamp'] = $mtime[1];
+$_SGLOBAL['supe_starttime'] = $_SGLOBAL['timestamp'] + $mtime[0];
 
-//写运行日志
-function runlog($log, $file='wechat', $halt=0) {
-	global $_SGLOBAL, $_SERVER;
-
-	$nowurl = $_SERVER['REQUEST_URI']?$_SERVER['REQUEST_URI']:($_SERVER['PHP_SELF']?$_SERVER['PHP_SELF']:$_SERVER['SCRIPT_NAME']);
-	$log = gmdate('Y-m-d H:i:s', $_SGLOBAL['timestamp'])."\t$type\t"."\t{$nowurl}\t".str_replace(array("\r", "\n"), array(' ', ' '), trim($log))."\n";
-	$yearmonth = gmdate('Ym', $_SGLOBAL['timestamp']);
-	$logdir = './data/log/';
-	if(!is_dir($logdir)) mkdir($logdir, 0777);
-	$logfile = $logdir.$yearmonth.'_'.$file.'.php';
-	if(@filesize($logfile) > 2048000) {
-		$dir = opendir($logdir);
-		$length = strlen($file);
-		$maxid = $id = 0;
-		while($entry = readdir($dir)) {
-			if(strexists($entry, $yearmonth.'_'.$file)) {
-				$id = intval(substr($entry, $length + 8, -4));
-				$id > $maxid && $maxid = $id;
-			}
-		}
-		closedir($dir);
-		$logfilebak = $logdir.$yearmonth.'_'.$file.'_'.($maxid + 1).'.php';
-		@rename($logfile, $logfilebak);
-	}
-	if($fp = @fopen($logfile, 'a')) {
-		@flock($fp, 2);
-		fwrite($fp, "<?PHP exit;?>\t".str_replace(array('<?', '?>', "\r", "\n"), '', $log)."\n");
-		fclose($fp);
-	}
-	if($halt) exit();
+//连接数据库
+include_once(S_ROOT.'./class_mysql.php');
+$_SGLOBAL = array();
+if(empty($_SGLOBAL['db'])) {
+	$_SGLOBAL['db'] = new dbstuff;
+	$_SGLOBAL['db']->charset = $_SC['dbcharset'];
+	$_SGLOBAL['db']->connect($_SC['dbhost'], $_SC['dbuser'], $_SC['dbpw'], $_SC['dbname'], $_SC['pconnect']);
 }
+include_once(S_ROOT.'./function_common.php');
+
 ?>
