@@ -7,8 +7,10 @@ $type = $weObj->getRev()->getRevType();
 switch($type) {
 	case Wechat::MSGTYPE_TEXT:
 			$revdata=$weObj->getRevData();
-			//测试用户专享
-			if(in_array($revdata['FromUserName'], $testusers) ){
+			
+			$super=in_array($revdata['FromUserName'], $testusers)?1:0;//是否特殊用户
+			
+			if($super){
 				if("report"==$revdata['Content']){
 					//$text = curl('http://119.29.78.76/gdmuwx/report.php');
 					$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('wxtextmsg')." WHERE status='0'");
@@ -37,12 +39,14 @@ switch($type) {
 				$time24=date("Y-m-d H:i:s",time()-(1 * 24 * 60 * 60));
 				//$weObj->text(serialize(array('status'=>'服务器正在维护中...','revdata'=> $revdata,'test'=>"SELECT * FROM  WHERE FromUserName='{$revdata['FromUserName']}' AND CreateTime > {$time24} ORDER BY CreateTime desc limit 1")))->reply();
 				//exit;
-				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('wxbx')." WHERE FromUserName='{$revdata['FromUserName']}' AND CreateTime > '{$time24}' ORDER BY CreateTime desc limit 1");
-				if($nearbx = $_SGLOBAL['db']->fetch_array($query)){
-					$msg='你好！'.$nearbx['stuname']."同学，你在 {$nearbx['CreateTime']} 已经报修了！24小时之内，您已经报修一次了，请耐心等待，谢谢！";
-					$weObj->text($msg)->reply();
-					exit();
-				} 
+				if(!$super){
+					$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('wxbx')." WHERE FromUserName='{$revdata['FromUserName']}' AND CreateTime > '{$time24}' ORDER BY CreateTime desc limit 1");
+					if($nearbx = $_SGLOBAL['db']->fetch_array($query)){
+						$msg='你好！'.$nearbx['stuname']."同学，你在 {$nearbx['CreateTime']} 已经报修了！24小时之内，您已经报修一次了，请耐心等待，谢谢！";
+						$weObj->text($msg)->reply();
+						exit();
+					}
+				}
 				$info = getbxinfo($revdata['Content']);
 				if(is_array($info)){
 					$info['CreateTime']=$revdata['CreateTime'];
@@ -68,7 +72,7 @@ switch($type) {
 	case Wechat::MSGTYPE_EVENT:
 			$revenent=$weObj->getRevEvent();
 			if($revenent['event']==Wechat::EVENT_SUBSCRIBE)
-				$weObj->text("欢迎关注GDMU学生网管。如果你的网络出现问题，请回复“报修”。")->reply();
+				$weObj->text(WG_GZ)->reply();
 			break;
 	case Wechat::MSGTYPE_IMAGE:
 			break;

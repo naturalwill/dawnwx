@@ -62,7 +62,7 @@ foreach($jsondata as $wxdata){
 	$list['__EVENTARGUMENT']='';
 	$list['__LASTFOCUS']='';
 	unset($list['Button2']);
-	$data=curl($reporturl,$list);	
+	$data=curl($reporturl,$list);
 	
 	preg_match_all('/<script([^>.]*)>.*alert\(\'([^\'.]+)\'\).*<\/script>/i', $data, $matches);
 	echo $wxdata->stuname.' ' .htmlspecialchars($matches[2][0])."<br />";

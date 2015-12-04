@@ -12,6 +12,7 @@ $testusers = array('wechatid');//填写你的微信号id
 
 //define('UC_PPP', 20);
 define('WG_BXGS','报修格式：“报修 学号 姓名 宿舍号 房间号 端口号 联系电话 故障情况描述”。如：“报修 13207060001 张三 东莞2栋 219 A 13650328888/678888 今天上午10点时不能上网，错误691”。（PS：各个字段用空格分隔；联系电话必须要有长号，如有短号可以在长号后加“/”用以区分；留1、留2的宿舍号请填写“东莞留1”、“东莞留2”）');
+define('WG_GZ','欢迎关注GDMU学生网管。如果你的网络出现问题，请回复“报修”。更多详情，请点击<a href="http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzIwNzEwNDM3Ng==#wechat_webview_type=1&wechat_redirect">关于我们</a>。');
 
 //Ucenter Home配置参数
 $_SC = array();
