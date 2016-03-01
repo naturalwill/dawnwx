@@ -1,7 +1,7 @@
 <?php
 include_once "common.php";
 ob_clean();
-header("Content-type: text/html; charset=utf-8"); 
+header("Content-type: application/json; charset=utf-8"); 
 $query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('wxbx')." WHERE status='0'");
 $arr = array();
 while($read = $_SGLOBAL['db']->fetch_array($query)){
