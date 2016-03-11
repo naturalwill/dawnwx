@@ -35,7 +35,7 @@ function curl($url, $data=array(), $timeout = 30)
 }
 
 
-header("Content-type: text/html; charset=utf-8"); 
+header("Content-type: text/plain; charset=utf-8"); 
 
 $jsondata =json_decode(curl($infourl));
 
@@ -65,7 +65,7 @@ foreach($jsondata as $wxdata){
 	$data=curl($reporturl,$list);
 	
 	preg_match_all('/<script([^>.]*)>.*alert\(\'([^\'.]+)\'\).*<\/script>/i', $data, $matches);
-	echo $wxdata->stuname.' ' .htmlspecialchars($matches[2][0])."<br />";
+	echo $wxdata->stuname.' ' .htmlspecialchars($matches[2][0])."\n";
 }
 echo 'OK!';
 ?>
