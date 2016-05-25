@@ -89,7 +89,7 @@ function getbxinfo($revdata){
 		}
 	}
 	$revdataarr=array_values($revdataarr);
-	var_dump($revdataarr);
+	//var_dump($revdataarr);
 	$bx=array();
 	if(count($revdataarr)>=8){
 		$bx['stunum']=strlen($revdataarr[1])==11?(ctype_digit($revdataarr[1])?$revdataarr[1]:''):'';
