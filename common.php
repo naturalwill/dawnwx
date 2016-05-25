@@ -21,6 +21,7 @@ $_SGLOBAL['timestamp'] = $mtime[1];
 $_SGLOBAL['supe_starttime'] = $_SGLOBAL['timestamp'] + $mtime[0];
 
 //连接数据库
+/*
 include_once(S_ROOT.'./class_mysql.php');
 $_SGLOBAL = array();
 if(empty($_SGLOBAL['db'])) {
@@ -29,5 +30,5 @@ if(empty($_SGLOBAL['db'])) {
 	$_SGLOBAL['db']->connect($_SC['dbhost'], $_SC['dbuser'], $_SC['dbpw'], $_SC['dbname'], $_SC['pconnect']);
 }
 include_once(S_ROOT.'./function_common.php');
-
+*/
 ?>
